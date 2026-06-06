@@ -24,12 +24,9 @@ function UserDetail() {
   if (error) return <p>Error loading user</p>;
 
   return (
-    <div>
-      <h2>User Detail</h2>
+    <div className="p-6 border rounded shadow-xl space-y-2">
+      <h2 className="text-xl font-bold">{data.name}</h2>
 
-      <p>
-        <strong>Name:</strong> {data.name}
-      </p>
       <p>
         <strong>Email:</strong> {data.email}
       </p>
@@ -39,11 +36,10 @@ function UserDetail() {
       <p>
         <strong>Website:</strong> {data.website}
       </p>
-      <br />
+
       <button
-        onClick={() => {
-          navigate(-1);
-        }}
+        className="mt-4 bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+        onClick={() => navigate(-1)}
       >
         Back
       </button>

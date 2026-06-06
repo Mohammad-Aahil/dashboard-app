@@ -41,12 +41,17 @@ function Home() {
 
 function App() {
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-6 text-center">Dashboard</h1>
 
       {/* Navigation */}
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/users">Users</Link>
+      <nav className="flex justify-center gap-6 mb-6">
+        <Link className="text-blue-500 hover:underline" to="/">
+          Home
+        </Link>
+        <Link className="text-blue-500 hover:underline" to="/users">
+          Users
+        </Link>
       </nav>
 
       {/* Routes */}

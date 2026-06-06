@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Users = () => {
+  const [search, setSearch] = useState("");
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -16,19 +18,36 @@ const Users = () => {
     },
   });
 
+  // search filters
+  const filteredUsers = (data || []).filter((user) =>
+    user.name.toLowerCase().includes(search.toLowerCase()),
+  );
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading users</p>;
 
   return (
-    <div>
-      <h2>Users Page</h2>
+    <div className="space-y-3">
+      <h2>Users Page</h2> <br />
+      <input
+        className="border p-2 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Search users..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <br />
-      {(data || []).map((user) => (
-        <div key={user.id} className="border mb-2 rounded-md p-3 mx-auto w-md ">
-          <h3>{user.name}</h3>
-          <p>{user.email}</p>
+      {filteredUsers.map((user) => (
+        <div
+          key={user.id}
+          className="p-4 border rounded shadow hover:shadow-lg transition flex justify-center "
+        >
           <button>
-            <Link to={`/users/${user.id}`}>User Details</Link>
+            <Link
+              to={`/users/${user.id}`}
+              className="text-2xl font-semibold text-blue-600 "
+            >
+              {user.name}
+            </Link>
           </button>
           <br /> <br />
         </div>
