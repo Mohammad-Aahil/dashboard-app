@@ -1,29 +1,30 @@
 import { Routes, Route, Link, useParams } from "react-router-dom";
+import Users from "./components/Users";
 
 // Home page
 function Home() {
   return <h2>Home Page</h2>;
 }
 
-// Users page
-function Users() {
-  const users = [
-    { id: 1, name: "Aahil" },
-    { id: 2, name: "John" },
-  ];
+// // Users page
+// function Users() {
+//   const users = [
+//     { id: 1, name: "Aahil" },
+//     { id: 2, name: "John" },
+//   ];
 
-  return (
-    <div>
-      <h2>Users Page</h2>
+//   return (
+//     <div>
+//       <h2>Users Page</h2>
 
-      {users.map((user) => (
-        <div key={user.id}>
-          <Link to={`/users/${user.id}`}>{user.name}</Link>
-        </div>
-      ))}
-    </div>
-  );
-}
+//       {users.map((user) => (
+//         <div key={user.id}>
+//           <Link to={`/users/${user.id}`}>{user.name}</Link>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
 
 // User Detail page
 function UserDetail() {
