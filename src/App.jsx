@@ -1,6 +1,7 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import UserDetail from "./pages/UserDetail";
+import { useQuery } from "@tanstack/react-query";
 
 const App = () => {
   function Home() {
@@ -8,16 +9,36 @@ const App = () => {
   }
 
   function Users() {
-    const users = [
-      { id: 1, name: "Aahil" },
-      { id: 2, name: "John" },
-    ];
+    const navigate = useNavigate();
+
+    const { data, isLoading, error } = useQuery({
+      queryKey: ["users"],
+      queryFn: async () => {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch");
+        }
+        return res.json();
+      },
+    });
+
+    if (isLoading) return <p>Loading user...</p>;
+    if (error) return <p>Error loading user</p>;
 
     return (
       <div>
-        {users.map((user) => (
+        {data.map((user) => (
           <div key={user.id}>
-            <Link to={`/users/${user.id}`}>{user.name}</Link>
+            <p>{user.name}</p>
+            <button
+              onClick={() => {
+                navigate(`/users/${user.id}`);
+              }}
+            >
+              {" "}
+              Go to Details
+            </button>
+            <br /> <br />
           </div>
         ))}
       </div>
