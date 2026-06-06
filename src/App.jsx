@@ -1,59 +1,53 @@
-import React from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import UserDetail from "./pages/UserDetail";
-import { useQuery } from "@tanstack/react-query";
+import { Routes, Route, Link, useParams } from "react-router-dom";
 
-const App = () => {
-  function Home() {
-    return <h2> Home Page</h2>;
-  }
+// Home page
+function Home() {
+  return <h2>Home Page</h2>;
+}
 
-  function Users() {
-    const navigate = useNavigate();
-
-    const { data, isLoading, error } = useQuery({
-      queryKey: ["users"],
-      queryFn: async () => {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch");
-        }
-        return res.json();
-      },
-    });
-
-    if (isLoading) return <p>Loading user...</p>;
-    if (error) return <p>Error loading user</p>;
-
-    return (
-      <div>
-        {data.map((user) => (
-          <div key={user.id}>
-            <p>{user.name}</p>
-            <button
-              onClick={() => {
-                navigate(`/users/${user.id}`);
-              }}
-            >
-              {" "}
-              Go to Details
-            </button>
-            <br /> <br />
-          </div>
-        ))}
-      </div>
-    );
-  }
+// Users page
+function Users() {
+  const users = [
+    { id: 1, name: "Aahil" },
+    { id: 2, name: "John" },
+  ];
 
   return (
     <div>
-      <h1>Dasboard</h1>
+      <h2>Users Page</h2>
 
+      {users.map((user) => (
+        <div key={user.id}>
+          <Link to={`/users/${user.id}`}>{user.name}</Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// User Detail page
+function UserDetail() {
+  const { id } = useParams();
+
+  return (
+    <div>
+      <h2>User Detail</h2>
+      <p>User ID: {id}</p>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+
+      {/* Navigation */}
       <nav>
-        <Link to={"/"}>Home</Link> | {""}
-        <Link to={"/users"}>Users</Link>
+        <Link to="/">Home</Link> | <Link to="/users">Users</Link>
       </nav>
 
+      {/* Routes */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />
@@ -61,6 +55,6 @@ const App = () => {
       </Routes>
     </div>
   );
-};
+}
 
 export default App;
