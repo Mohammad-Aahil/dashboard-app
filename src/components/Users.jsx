@@ -24,7 +24,7 @@ const Users = () => {
       <h2>Users Page</h2>
       <br />
       {(data || []).map((user) => (
-        <div key={user.id}>
+        <div key={user.id} className="border mb-2 rounded-md p-3 mx-auto w-md ">
           <h3>{user.name}</h3>
           <p>{user.email}</p>
           <button>

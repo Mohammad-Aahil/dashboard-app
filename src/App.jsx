@@ -1,5 +1,6 @@
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import Users from "./components/Users";
+import UserDetail from "./components/UserDetail";
 
 // Home page
 function Home() {
@@ -27,16 +28,16 @@ function Home() {
 // }
 
 // User Detail page
-function UserDetail() {
-  const { id } = useParams();
+// function UserDetail() {
+//   const { id } = useParams();
 
-  return (
-    <div>
-      <h2>User Detail</h2>
-      <p>User ID: {id}</p>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <h2>User Detail</h2>
+//       <p>User ID: {id}</p>
+//     </div>
+//   );
+// }
 
 function App() {
   return (
